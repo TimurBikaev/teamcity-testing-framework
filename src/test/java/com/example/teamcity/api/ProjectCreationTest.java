@@ -31,6 +31,7 @@ public class ProjectCreationTest extends BaseApiTest {
 
     }
 
+
     // ПОЗИТИВНЫЙ КЕЙС: значение copyAllAssociatedSettings(false)
     @Test
     public void project_create_positive_copySettings_false() {
