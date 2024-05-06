@@ -28,6 +28,7 @@ public class ProjectCreationTest extends BaseApiTest {
 
         // Проверяем успешное создание проекта
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
+
     }
 
     // ПОЗИТИВНЫЙ КЕЙС: значение copyAllAssociatedSettings(false)
