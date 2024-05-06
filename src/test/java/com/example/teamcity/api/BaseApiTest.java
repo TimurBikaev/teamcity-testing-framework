@@ -1,11 +1,11 @@
 package com.example.teamcity.api;
 
-import com.example.teamcity.api.generators.TestDataStorage; // Импорт класса для хранения тестовых данных
-import com.example.teamcity.api.requests.CheckedRequests; // Импорт класса для проверенных запросов
-import com.example.teamcity.api.requests.UncheckedRequests; // Импорт класса для непроверенных запросов
-import com.example.teamcity.api.spec.Specifications; // Импорт класса для спецификаций запросов
-import org.testng.annotations.AfterMethod; // Импорт аннотации для метода, выполняемого после теста
-import org.testng.annotations.BeforeMethod; // Импорт аннотации для метода, выполняемого перед тестом
+import com.example.teamcity.api.generators.TestDataStorage;
+import com.example.teamcity.api.requests.CheckedRequests;
+import com.example.teamcity.api.requests.UncheckedRequests;
+import com.example.teamcity.api.spec.Specifications;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 // Базовый класс для API-тестов, наследующий базовый класс для всех тестов
 public class BaseApiTest extends BaseTest{
@@ -33,5 +33,6 @@ public class BaseApiTest extends BaseTest{
     public void cleanTest() {
         testDataStorage.delete(); // Очистка данных
     }
+
 
 }
