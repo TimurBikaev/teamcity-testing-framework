@@ -7,6 +7,8 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
+    //extends Request чтобы наследовать конструктор UncheckedBuildConfig,
+    //а implements Crudinterface чтобы все методы КРУДа сами обязательно проставлялись
 public class UncheckedBuildConfig extends Request implements Crudinterface {
     private static final String BUILD_CONFIG_ENDPOINT = "/app/rest/buildTypes";
 

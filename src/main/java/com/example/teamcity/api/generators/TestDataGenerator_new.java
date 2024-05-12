@@ -11,7 +11,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Arrays;
 
-public class TestDataGenerator {
+public class TestDataGenerator_new {
 
     // Метод для генерации тестовых данных
     public static TestData generate() {

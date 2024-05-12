@@ -5,7 +5,7 @@ import java.util.List;
 
 // Класс для хранения и управления тестовыми данными
 public class TestDataStorage {
-    private static TestDataStorage testDataStorage;
+    private static TestDataStorage testDataStorage; //един. экземпляр (по СинглТону)
     private List<TestData> testDataList; // Список тестовых данных для хранения
 
     // Приватный конструктор для создания экземпляра класса TestDataStorage

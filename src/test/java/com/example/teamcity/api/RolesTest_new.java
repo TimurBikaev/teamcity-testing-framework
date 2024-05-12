@@ -12,7 +12,7 @@ import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 // Класс для тестирования ролей
-public class RolesTest extends BaseApiTest {
+public class RolesTest_new extends BaseApiTest {
 
     /*
      * Этот тест проверяет, что неавторизованный пользователь не имеет права создавать проекты.

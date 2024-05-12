@@ -11,11 +11,11 @@ import static io.restassured.RestAssured.given;
 
 //extends Request чтобы наследовать конструктор UncheckedBuildConfig,
 //имплементируем интерфейс КРУД для ОБЯЗАТЕЛЬНОГО переопределения методов внутри этого интерфейса
-public class UncheckedProject extends Request implements Crudinterface {
+public class UncheckedProject_new extends Request implements Crudinterface {
 
     private static final String PROJECT_ENDPOINT = "/app/rest/projects";
 
-    public UncheckedProject(RequestSpecification spec) {
+    public UncheckedProject_new(RequestSpecification spec) {
         super(spec);
     }
 

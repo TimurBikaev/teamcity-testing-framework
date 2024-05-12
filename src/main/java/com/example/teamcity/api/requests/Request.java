@@ -2,7 +2,7 @@ package com.example.teamcity.api.requests;
 
 import io.restassured.specification.RequestSpecification;
 
-// Базовый класс для выполнения запросов
+// Базовый класс для выполнения ВСЕХ реквестов
 public class Request {
     protected RequestSpecification spec; // Спецификация запроса
 
