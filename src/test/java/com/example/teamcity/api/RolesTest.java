@@ -34,8 +34,7 @@ public class RolesTest extends BaseApiTest {
                 .get(testData.getProject().getId()) //запрашиваем проект по id
                 .then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND) //проверяем статус
                 //и тело ответа
-                .body(Matchers.containsString("No project found by locator 'count:1,id:"
-                        + testData.getProject().getId() + "'"));
+                .body(Matchers.containsString(String.format("No project found by locator 'count:1,id:%s'", testData.getProject().getId())));
     }
 
     /*
