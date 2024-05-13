@@ -28,7 +28,9 @@ public class ProjectCreationTest extends BaseApiTest {
 
         // Проверяем успешное создание проекта
         softy.assertThat(project.getId()).isEqualTo(testData.getProject().getId());
+
     }
+
 
     // ПОЗИТИВНЫЙ КЕЙС: значение copyAllAssociatedSettings(false)
     @Test
@@ -641,7 +643,7 @@ public class ProjectCreationTest extends BaseApiTest {
                     .body(Matchers.containsString("ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters)")); // Проверяем содержание сообщения (основную мысль)
 
             //Для скобок другой ответ -не ищутся через get
-            if (projectId.contains(")") ||projectId.contains("(")) {
+            if (projectId.contains(")") || projectId.contains("(")) {
                 // Проверка отсутствия созданного БилдКонфига
                 uncheckedWithSuperUser.getBuildConfigRequest()
                         .get(projectId)

@@ -22,8 +22,8 @@ public class TestDataGenerator {
                 .email(RandomData.getString() + "@gmail.com") // Генерация email
                 .roles(Roles.builder()
                         .role(Arrays.asList(Role.builder()
-                                .roleId("SYSTEM_ADMIN")
-                                .scope("g")
+                                .roleId("SYSTEM_ADMIN") //по умолчанию передаем роль Админа (заменить на тип enum)
+                                .scope("g") //скоуп групп
                                 .build())) // Генерация роли пользователя
                         .build())
                 .build();

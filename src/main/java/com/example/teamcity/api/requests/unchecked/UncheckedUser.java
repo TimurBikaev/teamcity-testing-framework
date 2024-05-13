@@ -11,9 +11,11 @@ public class UncheckedUser extends Request implements Crudinterface {
 
     private final static String USER_ENDPOINT = "/app/rest/users";
 
+    // Конструктор класса, принимающий спецификацию запроса
     public UncheckedUser(RequestSpecification spec) {
         super(spec);
-    }
+    } //переиспользование конструктора-родителя Request
+    //поэтому super
 
 
     @Override

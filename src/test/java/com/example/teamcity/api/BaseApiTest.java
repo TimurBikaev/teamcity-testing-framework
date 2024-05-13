@@ -24,7 +24,6 @@ public class BaseApiTest extends BaseTest{
     // Метод для настройки теста перед выполнением
     @BeforeMethod
     public void setupTest() {
-
         testDataStorage = TestDataStorage.getStorage(); // Инициализация объекта для хранения тестовых данных
     }
 

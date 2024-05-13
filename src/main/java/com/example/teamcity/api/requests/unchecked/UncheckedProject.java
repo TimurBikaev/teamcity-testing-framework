@@ -3,13 +3,13 @@ package com.example.teamcity.api.requests.unchecked;
 //Для проверки негативных сценариев, где приходит код ошибки вместо кода 2хх
 
 import com.example.teamcity.api.requests.Crudinterface;
-import com.example.teamcity.api.requests.Crudinterface;
 import com.example.teamcity.api.requests.Request;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
+//extends Request чтобы наследовать конструктор UncheckedBuildConfig,
 //имплементируем интерфейс КРУД для ОБЯЗАТЕЛЬНОГО переопределения методов внутри этого интерфейса
 public class UncheckedProject extends Request implements Crudinterface {
 

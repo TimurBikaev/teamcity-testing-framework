@@ -19,8 +19,8 @@ public class TestData {
 
     // Метод для удаления сгенерированных данных
     public void delete() {
-        var spec = Specifications.getSpec().authSpec(user); // Получаем спецификацию для пользователя
-        new UncheckedProject(spec).delete(project.getId()); // Удаляем проект
+        var spec = Specifications.getSpec().authSpec(user); // Получаем спецификацию для авториз. пользователя
+        new UncheckedProject(spec).delete(project.getId()); // Удаляем проект непроверяемым методом, т.к. нам всё равно на код *это попытка удаления)
         new UncheckedUser(spec).delete(user.getUsername()); // Удаляем пользователя
     }
 }

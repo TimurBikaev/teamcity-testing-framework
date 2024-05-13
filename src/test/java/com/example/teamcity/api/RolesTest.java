@@ -24,15 +24,17 @@ public class RolesTest extends BaseApiTest {
         var testData = testDataStorage.addTestData(); // Добавляем тестовые данные
 
         // Создание проекта неавторизованным пользователем
-        new UncheckedRequests(Specifications.getSpec().unauthSpec()).getProjectRequest()
-                .create(testData.getProject())
+        new UncheckedRequests(Specifications.getSpec().unauthSpec())//создаем реквест через спеку, неавториз.юзером,
+                .getProjectRequest()  //реквест для проекта
+                .create(testData.getProject())// создаем проект
                 .then().assertThat().statusCode(HttpStatus.SC_UNAUTHORIZED); // Проверяем статус ответа
 
-        // Проверка отсутствия созданного проекта при попытке доступа авторизованным пользователем
+        // Проверка отсутствия созданного проекта при попытке доступа Авторизованным пользователем
         uncheckedWithSuperUser.getProjectRequest()
-                .get(testData.getProject().getId())
-                .then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND)
-                .body(Matchers.containsString("No project found by locator 'count:1,id:" + testData.getProject().getId() + "'"));
+                .get(testData.getProject().getId()) //запрашиваем проект по id
+                .then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND) //проверяем статус
+                //и тело ответа
+                .body(Matchers.containsString(String.format("No project found by locator 'count:1,id:%s'", testData.getProject().getId())));
     }
 
     /*
@@ -94,6 +96,7 @@ public class RolesTest extends BaseApiTest {
         var firstTestData = testDataStorage.addTestData(); // Добавляем тестовые данные для первого проекта
         var secondTestData = testDataStorage.addTestData(); // Добавляем тестовые данные для второго проекта
 
+
         // Создаем проекты
         checkedWithSuperUser.getProjectRequest().create(firstTestData.getProject());
         checkedWithSuperUser.getProjectRequest().create(secondTestData.getProject());
@@ -101,10 +104,12 @@ public class RolesTest extends BaseApiTest {
         // Устанавливаем роль администратора проекта для пользователей
         firstTestData.getUser().setRoles(TestDataGenerator
                 .generateRoles(Role.PROJECT_ADMIN, "p:" + firstTestData.getProject().getId()));
-        secondTestData.getUser().setRoles(TestDataGenerator.generateRoles(Role.PROJECT_ADMIN, "p:" + secondTestData.getProject().getId()));
-
         // Создаем пользователей с ролью администратора проекта
         checkedWithSuperUser.getUserRequest().create(firstTestData.getUser());
+
+        //второй юзер secondTestData.getUser() для второго проекта secondTestData.getProject()
+        secondTestData.getUser().setRoles(TestDataGenerator.generateRoles(Role.PROJECT_ADMIN, "p:" + secondTestData.getProject().getId()));
+        // Создаем пользователей с ролью администратора проекта
         checkedWithSuperUser.getUserRequest().create(secondTestData.getUser());
 
         // Пытаемся создать конфигурацию сборки для проекта второго администратора с использованием авторизации первого администратора
