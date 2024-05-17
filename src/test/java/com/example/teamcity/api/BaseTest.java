@@ -2,8 +2,11 @@ package com.example.teamcity.api;
 
 // В этом пакете содержится основной функционал для выполнения тестов в системе
 
+import com.example.teamcity.api.generators.TestDataStorage;
 import com.example.teamcity.api.models.AuthSettings; // Импортируем модель AuthSettings
 import com.example.teamcity.api.models.Module; // Импортируем модель Module
+import com.example.teamcity.api.requests.CheckedRequests;
+import com.example.teamcity.api.requests.UncheckedRequests;
 import com.example.teamcity.api.requests.checked.CheckedAuthSettings; // Импортируем класс CheckedAuthSettings для проверки настроек аутентификации
 import com.example.teamcity.api.spec.Specifications; // Импортируем класс Specifications для спецификаций запросов
 import io.restassured.specification.RequestSpecification; // Импортируем класс RequestSpecification для создания спецификации запроса
@@ -25,6 +28,32 @@ import static com.example.teamcity.api.models.Module.tokenAuthModule; // Имп�
 public class BaseTest {
     protected SoftAssertions softy; // Переменная для мягких проверок, доступная в этом классе и его наследниках
     private RequestSpecification spec; // Спецификация запроса
+
+
+    public TestDataStorage testDataStorage; // Объект для хранения тестовых данных
+
+    // Объект для выполнения проверенных запросов от имени суперпользователя
+    public CheckedRequests checkedWithSuperUser
+            = new CheckedRequests(Specifications.getSpec().superUserSpec());
+
+    // Объект для выполнения непроверенных запросов от имени суперпользователя
+    public UncheckedRequests uncheckedWithSuperUser
+            = new UncheckedRequests(Specifications.getSpec().superUserSpec());
+
+
+//    // Метод для настройки теста перед выполнением
+//    @BeforeMethod
+//    public void setupTest() {
+//        testDataStorage = TestDataStorage.getStorage(); // Инициализация объекта для хранения тестовых данных
+//    }
+//
+//    // Метод для очистки данных после выполнения теста
+//    @AfterMethod
+//    public void cleanTest() {
+//        testDataStorage.delete(); // Очистка данных
+//    }
+
+
 
     @BeforeSuite
     public void setup() {
@@ -48,14 +77,17 @@ public class BaseTest {
         new CheckedAuthSettings(spec).update(authSettings);
     }
 
+
     @BeforeMethod
     public void beforeTest() {
         softy = new SoftAssertions(); // Инициализация объекта для мягких проверок перед каждым тестом
+        testDataStorage = TestDataStorage.getStorage();
     }
 
     @AfterMethod
     public void afterTest() {
         softy.assertAll(); // Проверка всех собранных ошибок после выполнения теста
+      //  testDataStorage.delete();
     }
 
     // Метод для вывода сообщения на консоль
