@@ -19,10 +19,9 @@ public class BaseUiTest extends BaseTest {
         // Установка удаленного веб-драйвера для выполнения тестов
         Configuration.remote = Config.getProperty("remote");
 
-
         //Настройки для Селеноида
         Configuration.reportsFolder = "target/surefire-reports"; //папка для репортов
-        Configuration.downloadsFolder ="target/downloads"; //папка для загрузок
+        Configuration.downloadsFolder = "target/downloads"; //папка для загрузок
 
         //Настройки браузера
         BrowserSettings.setup(Config.getProperty("browser")); //название берем из конфига
@@ -33,6 +32,11 @@ public class BaseUiTest extends BaseTest {
         new CheckedUser(Specifications.getSpec().superUserSpec()).create(user); // Создание пользователя
         //логинимся методом, передавая туда юзера
         new LoginPage().open().login(user);
+    }
+
+    public void loginAsExistUser(User user) {
+        //логинимся методом, передавая туда юзера
+        new LoginPage().login(user);
     }
 
 }

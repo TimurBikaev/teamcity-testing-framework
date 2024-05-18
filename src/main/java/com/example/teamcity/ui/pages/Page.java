@@ -15,23 +15,24 @@ import static com.codeborne.selenide.Selenide.element;
 
 //Родительский класс всех PafeObjects, здесь храним общие элементы (кнопки submit, лоадеры загрузки и т.д)
 public abstract class Page {
-    private SelenideElement submitButton = element(Selectors.byType("submit")); //все кнопки подтвержения (LogIn, Proceed etc)
-    private SelenideElement savingWaitingMarker = element(Selectors.byId("saving")); //лоадер
-    private SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring-loader")); //другой лоадер
+    private static SelenideElement submitButton = element(Selectors.byType("submit")); //все кнопки подтвержения (LogIn, Proceed etc)
+    private static SelenideElement savingWaitingMarker = element(Selectors.byId("saving")); //лоадер
+    private static SelenideElement pageWaitingMarker = element(Selectors.byDataTest("ring-loader")); //другой лоадер
 
     //метод Сабмита с зашитым в него ожиданием
-    public void submit() {
+    public static void submit() {
+        submitButton.shouldBe(Condition.enabled, Duration.ofMinutes(10));
         submitButton.click();
         waitUntilDataIsSaved(); //добавили ожидание после клика
     }
 
     //добавим ожидание по лоадеру (который отловили через throttling страницы)
-    public void waitUntilPageIsLoaded() {
+    public static void waitUntilPageIsLoaded() {
         pageWaitingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
     }
 
     //лоадер сохранения данных (который отловили через throttling страницы)
-    public void waitUntilDataIsSaved() {
+    public static void waitUntilDataIsSaved() {
         //ждем пока не пропадет
         savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
     }

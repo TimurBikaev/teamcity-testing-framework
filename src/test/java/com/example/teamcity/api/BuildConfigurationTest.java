@@ -14,7 +14,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class BuildConfigurationTest extends BaseApiTest {
+public class BuildConfigurationTest extends BaseTest {
 
     // Тест-кейс для проверки создания конфигурации сборки
     @Test

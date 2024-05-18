@@ -11,7 +11,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class ProjectCreationTest extends BaseApiTest {
+public class ProjectCreationTest extends BaseTest {
 
     // ПОЗИТИВНЫЙ КЕЙС:Проверяем создание проекта с корректными данными
     @Test
@@ -41,7 +41,7 @@ public class ProjectCreationTest extends BaseApiTest {
         // Регистрируем пользователя
         new CheckedUser(Specifications.getSpec().superUserSpec()).create(testData.getUser());
 
-        // Создаем описание проекта с превышающим ограничение именем
+        // Создаем описание проекта
         var projectDescription = NewProjectDescription.builder()
                 .parentProject(testData.getProject().getParentProject())
                 .name(testData.getProject().getName())

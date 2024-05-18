@@ -7,6 +7,9 @@ import com.example.teamcity.api.models.User;
 import com.example.teamcity.ui.Selectors;
 import lombok.Getter;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.element;
 
 
@@ -27,9 +30,10 @@ public class LoginPage extends Page{
     }
 
     public void login (User user) {
-
     // Заполняем поля данными из генерации. Логинимся созданным ранее юзером
+        usernameInput.shouldBe(enabled, Duration.ofSeconds(10));
         usernameInput.sendKeys(user.getUsername());
+        passwordInput.shouldBe(enabled, Duration.ofSeconds(10));
         passwordInput.sendKeys(user.getPassword());
        submit(); // Нажимаем на кнопку "Log in"
 
