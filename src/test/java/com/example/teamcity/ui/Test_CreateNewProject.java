@@ -5,6 +5,7 @@ import com.codeborne.selenide.Condition;
 import com.example.teamcity.api.generators.TestDataGenerator;
 import com.example.teamcity.ui.pages.favorites.ProjectsPage;
 import com.example.teamcity.ui.pages.pagesForAdmin.CreateNewProject;
+import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
 import static com.example.teamcity.api.generators.RandomData.getString;
@@ -19,7 +20,7 @@ import static com.example.teamcity.ui.pages.pagesForAdmin.EditProject.checkSucce
 public class Test_CreateNewProject extends BaseUiTest {
 
     @Test
-    public void authorizedUserShouldBeAbleCreateNewProject_url() throws InterruptedException {
+    public void authorizedUserShouldBeAbleCreateNewProjectByUrl() throws InterruptedException {
         //Берем хранилище, добавляем туда ТестДату
         var testData = testDataStorage.addTestData(); // Создание тестовых данных
         var urlPubRepository = "https://github.com/TimurBikaev/teamcity-testing-framework"; //урл репозитория для создения через Реп
@@ -30,18 +31,22 @@ public class Test_CreateNewProject extends BaseUiTest {
         //далее создаем проект (доступно только админам)
         new CreateNewProject().open(testData.getProject().getParentProject().getLocator())
                 .createProjectByUrl(urlPubRepository) //переходим по урлу создания
-                .setupProject_ByUrl(testData.getProject().getName(), testData.getBuildType().getName()); //заполняем поля Имя и БилдТайп
-
+                .setupProjectByUrl(testData.getProject().getName(), testData.getBuildType().getName()); //заполняем поля Имя и БилдТайп
 
         new ProjectsPage().open()
                 .getSubprojects() // забираем значения subprojects
                 .stream().reduce((first, second) -> second).get() //забираем последний созданный элемент
                 .getHeader().shouldHave(Condition.text(testData.getProject().getName()));// проверяем появление имени проекта
+
+        // Проверка апишкой наличия созданного проекта (по-хорошему -- вынести в метод, передавать имя проекта для проверки)
+        uncheckedWithSuperUser.getProjectRequest()
+                .get(testData.getProject().getName())
+                .then().assertThat().statusCode(HttpStatus.SC_OK);
     }
 
     //Создание нового проекта Manual
     @Test
-    public void authorizedUserShouldBeAbleCreateNewProject_manual() throws InterruptedException {
+    public void authorizedUserShouldBeAbleCreateNewProjectByManually() {
         //Берем хранилище, добавляем туда ТестДату
         var testData = testDataStorage.addTestData(); // Создание тестовых данных
         //генерим имя проекта
@@ -50,18 +55,23 @@ public class Test_CreateNewProject extends BaseUiTest {
         loginAsUser(testData.getUser());
 
         //далее создаем проект (доступно только админам)
-        new CreateNewProject().openCreateProject_ByManually(testData.getProject().getParentProject().getLocator())
+        new CreateNewProject().openCreateProjectByManually(testData.getProject().getParentProject().getLocator())
                 .setupProjectByManual(projectName); //переходим по урлу создания и заполняем имя
 
         //Проверяем сообщение об успехе на след.странице
         checkSuccessCreateProject(projectName);
         //у сообщения ограниченная вместимость по символам, поэтому полностью может не уместиться!
+
+        // Проверка апишкой наличия созданного проекта
+        uncheckedWithSuperUser.getProjectRequest()
+                .get(projectName)
+                .then().assertThat().statusCode(HttpStatus.SC_OK);
     }
 
 
     //НЕГАТИВ: НЕКОРРЕКТНЫЙ УРЛ
     @Test
-    public void authorizedUser_CreateNewProject_url_uncorrectUrlRepos() throws InterruptedException {
+    public void authorizedUserCreateNewProjectUrlUncorrectUrlRepos() {
         //Берем хранилище, добавляем туда ТестДату
         var testData = testDataStorage.addTestData(); // Создание тестовых данных
         var url = getString(); //рандомный урл репозитория для создения через Реп
@@ -79,7 +89,7 @@ public class Test_CreateNewProject extends BaseUiTest {
 
     //НЕГАТИВ: УРЛ ЗАКРЫТОГО РЕПОЗИТОРИЯ БЕЗ КРЕДОВ
     @Test
-    public void authorizedUser_CreateNewProject_url_privateRepos_withoutCred() throws InterruptedException {
+    public void authorizedUserCreateNewProjectUrlPrivateReposWithoutCred() {
         //Берем хранилище, добавляем туда ТестДату
         var testData = testDataStorage.addTestData(); // Создание тестовых данных
         var urlPrivateRepository = "https://github.com/TimurBikaev/privateRepository"; //урл репозитория для создения через Реп
@@ -97,7 +107,7 @@ public class Test_CreateNewProject extends BaseUiTest {
 
     //НЕГАТИВ - МАНУАЛ - пустое имя
     @Test
-    public void authorizedUser_CreateNewProject_manual_emptyName() throws InterruptedException {
+    public void authorizedUserCreateNewProjectManualEmptyName() {
         //Берем хранилище, добавляем туда ТестДату
         var testData = testDataStorage.addTestData(); // Создание тестовых данных
 
@@ -105,8 +115,8 @@ public class Test_CreateNewProject extends BaseUiTest {
         loginAsUser(testData.getUser());
 
         //далее создаем проект (доступно только админам)
-        new CreateNewProject().openCreateProject_ByManually(testData.getProject().getParentProject().getLocator())
-                .setupProjectByManual_onlyName(""); //переходим по урлу создания и заполняем имя
+        new CreateNewProject().openCreateProjectByManually(testData.getProject().getParentProject().getLocator())
+                .setupProjectByManualOnlyName(""); //переходим по урлу создания и заполняем имя
 
         submit();
 
@@ -116,7 +126,7 @@ public class Test_CreateNewProject extends BaseUiTest {
 
     //НЕГАТИВ - МАНУАЛ - пустой id
     @Test
-    public void authorizedUser_CreateNewProject_manual_emptyID() throws InterruptedException {
+    public void authorizedUserCreateNewProjectManuallyEmptyID() {
         //Берем хранилище, добавляем туда ТестДату
         var testData = testDataStorage.addTestData(); // Создание тестовых данных
         //генерим имя проекта
@@ -125,14 +135,16 @@ public class Test_CreateNewProject extends BaseUiTest {
         loginAsUser(testData.getUser());
 
         //далее создаем проект (доступно только админам)
-        new CreateNewProject().openCreateProject_ByManually(testData.getProject().getParentProject().getLocator())
-                .setupProjectByManual_onlyName(projectName); //переходим по урлу создания и заполняем имя
+        new CreateNewProject().openCreateProjectByManually(testData.getProject().getParentProject().getLocator())
+                .setupProjectByManualOnlyName(projectName); //переходим по урлу создания и заполняем имя
+
+        //очистка инпута ID
         projectIdInput.clear();
+
         submit();
+
         //Проверяем хинт об ошибке
         checkErrorEmptyID();
     }
-
-
 }
 

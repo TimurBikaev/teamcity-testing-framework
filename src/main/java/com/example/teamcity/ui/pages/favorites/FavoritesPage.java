@@ -27,9 +27,5 @@ public class FavoritesPage extends Page {
         footer.shouldBe(Condition.visible, Duration.ofSeconds(10));
         waitForProjectListLoad();
     }
-
-
-
-
 }
 

@@ -44,7 +44,7 @@ public class CreateNewProject extends Page {
     }
 
     //Открываем урл создания проекта, передав в него род.проект
-    public CreateNewProject openCreateProject_ByManually(String parentProjectId) {
+    public CreateNewProject openCreateProjectByManually(String parentProjectId) {
         //                              /admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects#createFromUrl
         Selenide.open("/admin/createObjectMenu.html?projectId=" + parentProjectId + "&showMode=createProjectMenu");
         waitUntilPageIsLoaded();
@@ -75,7 +75,7 @@ public class CreateNewProject extends Page {
         return this;
     }
 
-    public CreateNewProject setupProjectByManual_onlyName(String name) {
+    public CreateNewProject setupProjectByManualOnlyName(String name) {
         manualNameInput.sendKeys(name);
         return this;
     }
@@ -87,7 +87,7 @@ public class CreateNewProject extends Page {
 
 
     //Заполнение полей проекта
-    public void setupProject_ByUrl(String projectName, String buildTypeName) {
+    public void setupProjectByUrl(String projectName, String buildTypeName) {
         projectNameInput.shouldBe(visible, Duration.ofSeconds(10));
         projectNameInput.clear();
         projectNameInput.sendKeys(projectName);
@@ -97,6 +97,7 @@ public class CreateNewProject extends Page {
         buildTypeNameInput.sendKeys(buildTypeName);
         submit();
     }
+
 
     public static void checkErrorUrl() {
         errorUrl.shouldBe(visible, Duration.ofSeconds(10));
@@ -117,5 +118,4 @@ public class CreateNewProject extends Page {
         errorIDEmpty.shouldBe(visible, Duration.ofSeconds(10));
         errorIDEmpty.shouldHave(text(errorIDEmptyText));
     }
-
 }

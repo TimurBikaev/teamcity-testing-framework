@@ -33,25 +33,24 @@ public class CreateNewBuildConfig extends Page {
     private static SelenideElement buildUrlEmptyError = element(Selectors.byId("error_url"));
 
 
-
     //Открываем урл создания БилдКонфига ерез URL
     public static CreateNewBuildConfig openCreateBuildConfigPage(String projectId) {
         //                              /admin/createObjectMenu.html?projectId=_Root&showMode=createProjectMenu&cameFromUrl=http%3A%2F%2Flocalhost%3A8111%2Ffavorite%2Fprojects#createFromUrl
-        Selenide.open("/admin/createObjectMenu.html?projectId=" +  projectId + "&showMode=createBuildTypeMenu#createFromUrl");
-                 //http://localhost:8111/admin/createObjectMenu.html?projectId=projectIdwZrlU&showMode=createBuildTypeMenu#createFromUrl
+        Selenide.open("/admin/createObjectMenu.html?projectId=" + projectId + "&showMode=createBuildTypeMenu#createFromUrl");
+        //http://localhost:8111/admin/createObjectMenu.html?projectId=projectIdwZrlU&showMode=createBuildTypeMenu#createFromUrl
         waitUntilPageIsLoaded();
         return new CreateNewBuildConfig();
     }
 
     //переключение в Мануал
-    public static void  switchToManually() {
+    public static void switchToManually() {
         ManuallyButton.shouldBe(enabled, Duration.ofSeconds(10));
         ManuallyButton.click();
     }
 
     //Открываем урл создания БилдКонфига через Manually
     public static CreateNewBuildConfig openCreateBuildConfigPage_ByManual(String projectId) {
-        Selenide.open("/admin/createObjectMenu.html?projectId=" +  projectId + "&showMode=createBuildTypeMenu#createManually");
+        Selenide.open("/admin/createObjectMenu.html?projectId=" + projectId + "&showMode=createBuildTypeMenu#createManually");
         waitUntilPageIsLoaded();
         return new CreateNewBuildConfig();
     }
@@ -71,18 +70,14 @@ public class CreateNewBuildConfig extends Page {
         // Проверяем, что значение в buildCongIdInput сгенерировалось и не пустое
         buildCongIdInput.shouldBe(Condition.attribute("generated"), Duration.ofSeconds(10));
         buildCongIdInput.shouldNotBe(Condition.empty);
-        submit();
         return new CreateNewBuildConfig();
     }
 
     //Метод создания БК через Manually - вводим buildConfigNameInput и подтверждаем
-    public static CreateNewBuildConfig createBuildConfigByManually_name(String name) {
+    public static CreateNewBuildConfig createBuildConfigInputOnlyName(String name) {
         buildConfigNameInput.shouldBe(enabled, Duration.ofSeconds(10));
+        buildConfigNameInput.clear();
         buildConfigNameInput.sendKeys(name);
-        // Проверяем, что значение в buildCongIdInput сгенерировалось и не пустое
-//        buildCongIdInput.shouldBe(Condition.attribute("generated"), Duration.ofSeconds(10));
-//        buildCongIdInput.shouldNotBe(Condition.empty);
-
         return new CreateNewBuildConfig();
     }
 
@@ -117,6 +112,5 @@ public class CreateNewBuildConfig extends Page {
         buildNameError.shouldBe(visible, Duration.ofSeconds(10));
         buildNameError.shouldHave(text(errorNameEmptyText));
     }
-
 
 }

@@ -41,19 +41,6 @@ public class BaseTest {
             = new UncheckedRequests(Specifications.getSpec().superUserSpec());
 
 
-//    // Метод для настройки теста перед выполнением
-//    @BeforeMethod
-//    public void setupTest() {
-//        testDataStorage = TestDataStorage.getStorage(); // Инициализация объекта для хранения тестовых данных
-//    }
-//
-//    // Метод для очистки данных после выполнения теста
-//    @AfterMethod
-//    public void cleanTest() {
-//        testDataStorage.delete(); // Очистка данных
-//    }
-
-
     @BeforeSuite
     public void setup() {
         message("Включение \"perProjectPermissions\": true");

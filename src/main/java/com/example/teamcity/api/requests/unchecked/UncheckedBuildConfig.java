@@ -23,7 +23,7 @@ public class UncheckedBuildConfig extends Request implements Crudinterface {
 
     @Override
     public Response get(String id) {
-        return given().spec(spec).get(BUILD_CONFIG_ENDPOINT + "/id:" + id);
+        return given().spec(spec).get(BUILD_CONFIG_ENDPOINT + "/id:" + id);//ГЕТ для доступа по ID
     }
 
     @Override
@@ -36,3 +36,5 @@ public class UncheckedBuildConfig extends Request implements Crudinterface {
         return given().spec(spec).delete(BUILD_CONFIG_ENDPOINT + "/id:" + id);
     }
 }
+
+
