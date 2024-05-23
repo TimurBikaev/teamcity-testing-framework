@@ -12,7 +12,7 @@ import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 // Класс для тестирования ролей
-public class RolesTest extends BaseApiTest {
+public class RolesTest extends BaseTest {
 
     /*
      * Этот тест проверяет, что неавторизованный пользователь не имеет права создавать проекты.
@@ -116,7 +116,5 @@ public class RolesTest extends BaseApiTest {
         new UncheckedBuildConfig(Specifications.getSpec().authSpec(secondTestData.getUser()))
                 .create(firstTestData.getBuildType()) // Создаем конфигурацию сборки
                 .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN); // Проверяем статус ответа
-
-        //softy.assertThat(buildConfig.getId()).isEqualTo(testData.getBuildType().getId());
     }
 }

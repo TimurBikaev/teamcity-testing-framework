@@ -25,21 +25,26 @@ public class RandomData {
 
     // Метод для генерации случайного имени проекта
     public static String getStringProjectName() {
-        return "project_name_" + RandomStringUtils.randomAlphabetic(LENGTH);
+        return "projectName" + RandomStringUtils.randomAlphabetic(LENGTH);
     }
 
     // Метод для генерации случайного имени типа сборки
     public static String getStringBuildTypeName() {
-        return "build_type_name_" + RandomStringUtils.randomAlphabetic(LENGTH);
+        return "buildTypeName" + RandomStringUtils.randomAlphabetic(LENGTH);
     }
 
     // Метод для генерации случайного идентификатора проекта
     public static String getStringProjectId() {
-        return "project_id_" + RandomStringUtils.randomAlphabetic(LENGTH);
+        return "projectId" + RandomStringUtils.randomAlphabetic(LENGTH);
     }
 
     // Метод для генерации случайного идентификатора типа сборки
     public static String getStringBuildTypeId() {
-        return "build_type_id_" + RandomStringUtils.randomAlphabetic(LENGTH);
+        return "buildTypeId" + RandomStringUtils.randomAlphabetic(LENGTH);
+    }
+
+    // Метод для генерации случайного идентификатора типа сборки
+    public static String getStringRepository() {
+        return "https://github.com/TimurBikaev/" + RandomStringUtils.randomAlphabetic(LENGTH);
     }
 }

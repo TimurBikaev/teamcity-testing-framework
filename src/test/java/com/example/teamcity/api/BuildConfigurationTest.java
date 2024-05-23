@@ -1,7 +1,5 @@
 package com.example.teamcity.api;
 
-//Первый апи-тест, настедуется от базового апи-класса,
-// а тот наследуется от общего базового класса
 
 import com.example.teamcity.api.generators.TestDataGenerator;
 import com.example.teamcity.api.models.BuildType;
@@ -14,7 +12,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class BuildConfigurationTest extends BaseApiTest {
+public class BuildConfigurationTest extends BaseTest {
 
     // Тест-кейс для проверки создания конфигурации сборки
     @Test
@@ -234,7 +232,7 @@ public class BuildConfigurationTest extends BaseApiTest {
         Response response = uncheckedBuildConfig.create(buildConfigDescription)
                 .then().assertThat().statusCode(HttpStatus.SC_OK).extract().response(); // Проверяем статус ответа и извлекаем ответ
 
-       // Получаем id созданной билд-конфигурации из ответа
+        // Получаем id созданной билд-конфигурации из ответа
         String buildConfigId = response.jsonPath().getString("id");
 
         // Проверка созданного БилдКонфига
@@ -467,7 +465,7 @@ public class BuildConfigurationTest extends BaseApiTest {
                     .body(Matchers.containsString("ID should start with a latin letter and contain only latin letters, digits and underscores (at most 225 characters).")); // Проверяем, содержит ли текст сообщения об ошибке ожидаемое сообщение
 
             //Для скобок другой ответ -не ищутся через get
-            if (id.contains(")") ||id.contains("(")) {
+            if (id.contains(")") || id.contains("(")) {
                 // Проверка отсутствия созданного БилдКонфига
                 uncheckedWithSuperUser.getBuildConfigRequest()
                         .get(id)
@@ -481,7 +479,6 @@ public class BuildConfigurationTest extends BaseApiTest {
                     .body(Matchers.containsString("No build type nor template is found by id '" + id + "'"));
         }
     }
-
 
 
     //НЕГАТИВНЫЙ КЕЙС: Создание двух БилдКонфигов с одним NAME и разными ID
