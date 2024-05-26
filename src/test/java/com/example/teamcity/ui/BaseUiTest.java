@@ -19,7 +19,7 @@ public class BaseUiTest extends BaseTest {
         // Установка базового URL для тестирования с использованием параметра "host" из конфигурации
         Configuration.baseUrl = "http://" + Config.getProperty("host");
         // Установка удаленного веб-драйвера для выполнения тестов
-        Configuration.remote = Config.getProperty("remote");
+        Configuration.remote = "http://" + Config.getProperty("remote");
 
         //Настройки для Селеноида
         Configuration.reportsFolder = "target/surefire-reports"; //папка для репортов

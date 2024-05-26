@@ -138,7 +138,7 @@ Write-Output "Setup teamcity server"
 Set-Location ..
 Write-Output "Current directory: $(Get-Location)"
 Set-Location $teamcity_tests_directory  # Возвращаемся в корневую папку проекта
-# Запускаем стартовый тест (который создаем предварительно) и конкретный метод в нем
+# Запускаем стартовый тест и конкретный метод в нем
 mvn clean test -Dtest=SetupTest#StartUpPage
 
 # Ожидание нажатия Enter с отображением запроса для мануальных действий по принятию лицензии и т.д. (использовал до mvn clean test -Dtest=SetupTest#StartUpPage)
