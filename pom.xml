@@ -21,6 +21,8 @@
         <google-gson.version>2.10.1</google-gson.version>
         <assertj-core.version>3.22.0</assertj-core.version>
         <selenide.version>7.0.2</selenide.version>
+        <suiteXmlFileApi>testng-suites/api-suite.xml</suiteXmlFileApi>
+        <suiteXmlFileUi>testng-suites/ui-suite.xml</suiteXmlFileUi>
     </properties>
 
     <dependencies>
@@ -39,11 +41,6 @@
             <artifactId>gson</artifactId>
             <version>${google-gson.version}</version>
         </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -70,12 +67,6 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-selenide</artifactId>
             <version>${allure.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.7.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -109,6 +100,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
+                    <suiteXmlFiles>
+                        <!-- Specify the path to your XML file here -->
+                        <suiteXmlFile>testng-suites/api-suite.xml</suiteXmlFile>
+                        <suiteXmlFile>testng-suites/ui-suite.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"

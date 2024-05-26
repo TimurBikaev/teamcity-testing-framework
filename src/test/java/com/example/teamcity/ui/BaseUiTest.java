@@ -1,12 +1,14 @@
 package com.example.teamcity.ui;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import com.example.teamcity.api.BaseTest;
 import com.example.teamcity.api.config.Config;
 import com.example.teamcity.api.models.User;
 import com.example.teamcity.api.requests.checked.CheckedUser;
 import com.example.teamcity.api.spec.Specifications;
 import com.example.teamcity.ui.pages.LoginPage;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.testng.annotations.BeforeSuite;
 
 public class BaseUiTest extends BaseTest {
@@ -25,6 +27,9 @@ public class BaseUiTest extends BaseTest {
 
         //Настройки браузера
         BrowserSettings.setup(Config.getProperty("browser")); //название берем из конфига
+
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+
     }
 
     public void loginAsUser(User user) {

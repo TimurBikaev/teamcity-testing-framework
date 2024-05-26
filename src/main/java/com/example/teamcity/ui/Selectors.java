@@ -25,4 +25,12 @@ public class Selectors {
     public static ByAttribute byHref(String value) {
         return new ByAttribute("href", value);
     }
+
+    public static ByAttribute byName(String value) {
+        return new ByAttribute("name", value);
+    }
+
+    public static ByAttribute byAgentSidebar(String value) {
+        return new ByAttribute("data-test-agents-sidebar-title", value);
+    }
 }
