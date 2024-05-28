@@ -125,7 +125,7 @@
           #Run Swagger coverage: Запускает Swagger Coverage команду, которая генерирует отчет.
         - name: Run Swagger coverage
           if: always()
-          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
+          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
           #Save Swagger coverage: Сохраняет отчет о покрытии Swagger как артефакт, чтобы его можно было использовать позже.
         - name: Save Swagger coverage
           uses: actions/upload-artifact@v4 # Использует действие GitHub Actions для загрузки артефактов.
