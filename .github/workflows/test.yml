@@ -137,12 +137,9 @@
               swagger-coverage-results.json
         - name: Publish Swagger coverage report
           if: always()
-          run: |
-            mkdir -p gh-pages/swagger-coverage
-            cp swagger-coverage-report.html gh-pages/swagger-coverage/index.html
-          env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           uses: peaceiris/actions-gh-pages@v3
           with:
-           publish_branch: gh-pages
-           publish_dir: gh-pages
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_branch: gh-pages
+            publish_dir: gh-pages
+
