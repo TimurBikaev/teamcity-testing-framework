@@ -17,7 +17,7 @@ import static com.example.teamcity.ui.pages.pagesForAdmin.CreateNewProject.check
 import static com.example.teamcity.ui.pages.pagesForAdmin.CreateNewProject.projectIdInput;
 import static com.example.teamcity.ui.pages.pagesForAdmin.EditProject.checkSuccessCreateProject;
 
-public class Test_CreateNewProject extends BaseUiTest {
+public class CreateNewProjectTest extends BaseUiTest {
 
     @Test
     public void authorizedUserShouldBeAbleCreateNewProjectByUrl() throws InterruptedException {

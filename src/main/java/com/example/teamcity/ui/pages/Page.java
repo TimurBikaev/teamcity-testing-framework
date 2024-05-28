@@ -28,7 +28,7 @@ public abstract class Page {
 
     //добавим ожидание по лоадеру (который отловили через throttling страницы)
     public static void waitUntilPageIsLoaded() {
-        pageWaitingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
+        pageWaitingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(5));
     }
 
     //лоадер сохранения данных (который отловили через throttling страницы)

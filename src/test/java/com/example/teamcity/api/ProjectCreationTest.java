@@ -11,7 +11,7 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class ProjectCreationTest extends BaseTest {
+public class ProjectCreationTest extends BaseApiTest {
 
     // ПОЗИТИВНЫЙ КЕЙС:Проверяем создание проекта с корректными данными
     @Test

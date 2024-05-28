@@ -24,7 +24,7 @@ import static com.example.teamcity.ui.pages.pagesForAdmin.CreateNewBuildConfig.c
 import static com.example.teamcity.ui.pages.pagesForAdmin.CreateNewBuildConfig.createBuildConfigInputOnlyName;
 import static com.example.teamcity.ui.pages.pagesForAdmin.CreateNewBuildConfig.switchToManually;
 
-public class Test_CreateNewBuildConfig extends BaseUiTest {
+public class CreateNewBuildConfigTest extends BaseUiTest {
     String url = "https://github.com/TimurBikaev/teamcity-testing-framework"; //урл открытого репозитория для создания через URL
 
 
