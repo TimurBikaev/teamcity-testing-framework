@@ -125,14 +125,20 @@
         # Install swagger-coverage-commandline
         - name: Install Swagger Coverage Commandline
           run: |
-                  wget https://github.com/arteam/swagger-coverage-commandline/releases/download/v1.0.0/swagger-coverage-commandline-1.0.0.zip
-                  unzip swagger-coverage-commandline-1.0.0.zip -d swagger-coverage-commandline
+            wget https://github.com/viclovsky/swagger-coverage/releases/swagger-coverage-1.5.0.zip
+            unzip swagger-coverage-commandline-swagger-coverage-1.5.0.zip
+
+        - name: Verify Swagger Coverage Commandline
+          run: |
+            ./swagger-coverage-commandline/bin/swagger-coverage-commandline --version
+
 
         - name: Run Swagger coverage
           if: always()
           run: |
             mkdir -p target/swagger-coverage-output
-            ./swagger-coverage-commandline/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
+            ./swagger-coverage-commandline/bin/swagger-coverage-commandline -s src/main/java/com/example.teamcity.api/swagger.json -i target/swagger-coverage-output
+            ls -al target/swagger-coverage-output
 
         # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
         - name: Save Swagger coverage
@@ -144,7 +150,7 @@
               swagger-coverage-report.html
               swagger-coverage-results.json
 
-            # Publish Swagger coverage report
+        # Publish Swagger coverage report
         - name: Publish Swagger coverage report
           if: always()
           uses: peaceiris/actions-gh-pages@v4
