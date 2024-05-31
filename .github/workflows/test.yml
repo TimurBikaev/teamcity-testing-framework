@@ -121,25 +121,18 @@
             publish_branch: gh-pages  # Указывает ветку gh-pages для публикации
             publish_dir: allure-history # Указывает директорию для публикации на GitHub Pages
 
-          # Swagger API Coverage
-          #Run Swagger coverage: Запускает Swagger Coverage команду, которая генерирует отчет.
+        # Создание репорта с покрытием API тестов, основанного на Swagger. Документация: https://github.com/viclovsky/swagger-coverage
         - name: Run Swagger coverage
           if: always()
-          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
-          #Save Swagger coverage: Сохраняет отчет о покрытии Swagger как артефакт, чтобы его можно было использовать позже.
+          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
+
+        # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
         - name: Save Swagger coverage
-          uses: actions/upload-artifact@v4 # Использует действие GitHub Actions для загрузки артефактов.
+          uses: actions/upload-artifact@v4
           if: always()
           with:
-            name: swagger-coverage # Имя артефакта.
-            path: | # Путь к файлам, которые будут сохранены как артефакт.
+            name: swagger-coverage
+            path: |
               swagger-coverage-report.html
               swagger-coverage-results.json
-        - name: Publish Swagger coverage report
-          if: always()
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: gh-pages
 
