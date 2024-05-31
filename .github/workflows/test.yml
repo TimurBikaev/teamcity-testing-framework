@@ -137,7 +137,7 @@
           if: always()
           run: |
             mkdir -p target/swagger-coverage-output
-            ./swagger-coverage-commandline/bin/swagger-coverage-commandline -s src/main/java/com.example.teamcity/api/swagger.json -i target/swagger-coverage-output
+            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com.example.teamcity/api/swagger.json -i target/swagger-coverage-output
             ls -al target/swagger-coverage-output
 
         # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
