@@ -141,14 +141,19 @@
             ls -al target/swagger-coverage-output
 
         # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
-        - name: Save Swagger coverage
+        - name: Save Swagger coverage report
           uses: actions/upload-artifact@v4
           if: always()
           with:
-            name: swagger-coverage
-            path: |
-              swagger-coverage-report.html
-              swagger-coverage-results.json
+           name: swagger-coverage-report
+           path: swagger-coverage-report.html
+
+        - name: Save Swagger coverage results
+          uses: actions/upload-artifact@v4
+          if: always()
+          with:
+            name: swagger-coverage-results
+            path: swagger-coverage-results.json
 
         # Publish Swagger coverage report
         - name: Publish Swagger coverage report
