@@ -122,9 +122,17 @@
             publish_dir: allure-history # Указывает директорию для публикации на GitHub Pages
 
         # Создание репорта с покрытием API тестов, основанного на Swagger. Документация: https://github.com/viclovsky/swagger-coverage
+        # Install swagger-coverage-commandline
+        - name: Install Swagger Coverage Commandline
+          run: |
+                  wget https://github.com/arteam/swagger-coverage-commandline/releases/download/v1.0.0/swagger-coverage-commandline-1.0.0.zip
+                  unzip swagger-coverage-commandline-1.0.0.zip -d swagger-coverage-commandline
+
         - name: Run Swagger coverage
           if: always()
-          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
+          run: |
+            mkdir -p target/swagger-coverage-output
+            ./swagger-coverage-commandline/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
 
         # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
         - name: Save Swagger coverage
@@ -135,4 +143,13 @@
             path: |
               swagger-coverage-report.html
               swagger-coverage-results.json
+
+            # Publish Swagger coverage report
+        - name: Publish Swagger coverage report
+          if: always()
+          uses: peaceiris/actions-gh-pages@v4
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_branch: gh-pages
+            publish_dir: target/swagger-coverage-output
 
