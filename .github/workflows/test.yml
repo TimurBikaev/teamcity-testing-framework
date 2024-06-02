@@ -7,6 +7,11 @@
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
+
+        # Update actions to use Node.js 20
+        - name: Install dependencies
+          run: npm install
+
         - name: Set up JDK
           uses: actions/setup-java@v4
           with:
