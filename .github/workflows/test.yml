@@ -130,28 +130,33 @@
           run: |
             # Создаем директорию для вывода отчета
             mkdir -p target/swagger-coverage-output
-            
+
             # Проверяем наличие файла swagger.json
             if [ ! -f src/main/java/com/example/teamcity/api/swagger.json ]; then
               echo "Error: swagger.json not found"
               exit 1
             fi
-            
+
             # Проверяем права доступа к файлу swagger.json
             ls -l src/main/java/com/example/teamcity/api/swagger.json
-            
+
             # Запускаем команду Swagger Coverage
-            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
-            
+            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output > coverage_report.txt 2>&1
+
             # Проверяем результат выполнения команды
             status=$?
             if [ $status -ne 0 ]; then
               echo "Error: Swagger coverage command failed with exit code $status"
               exit $status
             fi
-            
+
             # Выводим содержимое директории с результатами
             ls -al target/swagger-coverage-output
+
+            # Выводим основные результаты из логов
+            echo "Main results:"
+            cat coverage_report.txt | grep "Full coverage"
+        
 
         # Сохранение swagger-coverage-report.html
         - name: Save Swagger coverage report
