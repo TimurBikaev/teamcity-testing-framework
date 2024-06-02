@@ -47,6 +47,7 @@ public class Specifications {
         //Эти фильтры будут записывать информацию о запросах и ответах в консоль или файл журнала, что может быть полезно для отладки.
         requestBuilder.addFilter(new RequestLoggingFilter()); // Добавление фильтра для логирования запросов
         requestBuilder.addFilter(new ResponseLoggingFilter()); // Добавление фильтра для логирования ответов
+        requestBuilder.addFilter(new SwaggerCoverageRestAssured());
         //Это сообщает серверу, что клиент ожидает JSON-ответы.
         requestBuilder.setContentType(ContentType.JSON); // Установка типа контента на JSON
         requestBuilder.setAccept(ContentType.JSON); // Установка заголовка Accept на JSON
