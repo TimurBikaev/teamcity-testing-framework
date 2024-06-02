@@ -139,20 +139,11 @@
               echo "swagger.json not found"
               exit 1
             else
-              echo "swagger.json found"
+            echo "swagger.json found"
             fi
             
-            - name: Check permissions of swagger.json
-            run: |
-              ls -l src/main/java/com/example/teamcity/api/swagger.json
-
-          # Запуск Swagger coverage репорт
-        - name: Run Swagger coverage
-          if: always()
+        - name: Check permissions of swagger.json
           run: |
-            mkdir -p target/swagger-coverage-output
-            echo "Running swagger-coverage-commandline"
-            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
-            echo "Swagger coverage command completed"
-            ls -al target/swagger-coverage-output
+            ls -l src/main/java/com/example/teamcity/api/swagger.json
+
             
