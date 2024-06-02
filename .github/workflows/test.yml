@@ -125,13 +125,16 @@
           # Запуск Swagger coverage репорт
         - name: Run Swagger coverage
           if: always()
-          run: |
-            mkdir -p target/swagger-coverage-output
-            echo "Running swagger-coverage-commandline"
-            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
-            echo "Swagger coverage command completed"
-            ls -al target/swagger-coverage-output
+          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i swagger-coverage-output
+
             
+            
+            
+            
+            
+            
+            
+
 
           #Allure история с публикацией в pages
         - name: Load test report history #Загружает историю тестовых отчетов.
