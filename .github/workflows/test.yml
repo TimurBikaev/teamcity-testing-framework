@@ -122,21 +122,49 @@
           run: |
             ls -l src/main/java/com/example/teamcity/api/swagger.json
 
-          # Запуск Swagger coverage репорт
+        # Запуск Swagger coverage репорта
         - name: Run Swagger coverage
           if: always()
-          run: .swagger-coverage-commandline/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i swagger-coverage-output
+          run: |
+            mkdir -p target/swagger-coverage-output
+            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
+            ls -al target/swagger-coverage-output
 
-            
-            
-            
-            
-            
-            
-            
+        # Сохранение swagger-coverage-report.html
+        - name: Save Swagger coverage report
+          if: always()
+          run: |
+            mkdir -p target/swagger-coverage-output
+            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
+            cp target/swagger-coverage-output/swagger-coverage-report.html swagger-coverage-report.html
+          uses: actions/upload-artifact@v4
+          with:
+            name: swagger-coverage-report
+            path: swagger-coverage-report.html
+
+        # Сохранение swagger-coverage-results.json
+        - name: Save Swagger coverage results
+          if: always()
+          run: |
+            mkdir -p target/swagger-coverage-output
+            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
+              cp target/swagger-coverage-output/swagger-coverage-results.json swagger-coverage-results.json
+          uses: actions/upload-artifact@v4
+          with:
+            name: swagger-coverage-results
+            path: swagger-coverage-results.json
 
 
-          #Allure история с публикацией в pages
+
+
+
+
+
+
+
+
+
+        #Allure история с публикацией в pages
         - name: Load test report history #Загружает историю тестовых отчетов.
           uses: actions/checkout@v4 #Использует actions/checkout@v3 для клонирования репозитория.
           if: always() #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
