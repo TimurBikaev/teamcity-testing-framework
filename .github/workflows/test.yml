@@ -114,7 +114,7 @@
             allure_results: target/allure-results # Указывает директорию, где хранятся результаты тестов
 
         - name: Publish test report  # Публикует новый тестовый отчет на GitHub Pages
-          uses: peaceiris/actions-gh-pages@v3 #peaceiris/actions-gh-pages@v3 для публикации.
+          uses: peaceiris/actions-gh-pages@v4 #peaceiris/actions-gh-pages@v3 для публикации.
           if: always()  #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}  # Токен для аутентификации на GitHub. GitHub автоматически создает и предоставляет этот токен для каждого запуска рабочего процесса.
