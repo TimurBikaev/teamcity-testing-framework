@@ -121,46 +121,4 @@
             publish_branch: gh-pages  # Указывает ветку gh-pages для публикации
             publish_dir: allure-history # Указывает директорию для публикации на GitHub Pages
 
-        # Создание репорта с покрытием API тестов, основанного на Swagger. Документация: https://github.com/viclovsky/swagger-coverage
-        # Install swagger-coverage-commandline
-        - name: Install Swagger Coverage Commandline
-          run: |
-            wget https://github.com/viclovsky/swagger-coverage/releases/download/1.5.0/swagger-coverage-1.5.0.zip
-            unzip swagger-coverage-1.5.0.zip -d swagger-coverage-1.5.0
-
-        - name: Verify Swagger Coverage Commandline
-          run: |
-            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline --help
-
-
-        - name: Run Swagger coverage
-          if: always()
-          run: |
-            mkdir -p target/swagger-coverage-output
-            ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s src/main/java/com/example/teamcity/api/swagger.json -i target/swagger-coverage-output
-            ls -al target/swagger-coverage-output
-
-        # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
-        - name: Save Swagger coverage report
-          uses: actions/upload-artifact@v4
-          if: always()
-          with:
-           name: swagger-coverage-report
-           path: swagger-coverage-report.html
-
-        - name: Save Swagger coverage results
-          uses: actions/upload-artifact@v4
-          if: always()
-          with:
-            name: swagger-coverage-results
-            path: swagger-coverage-results.json
-
-        # Publish Swagger coverage report
-        - name: Publish Swagger coverage report
-          if: always()
-          uses: peaceiris/actions-gh-pages@v4
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: target/swagger-coverage-output
 
