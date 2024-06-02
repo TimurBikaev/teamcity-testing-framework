@@ -95,31 +95,7 @@
           run: ./mvnw test -DsuiteXmlFile=testng-suites\api-suite.xml
 
 
-        #Allure история с публикацией в pages
-        - name: Load test report history #Загружает историю тестовых отчетов.
-          uses: actions/checkout@v4 #Использует actions/checkout@v3 для клонирования репозитория.
-          if: always() #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
-          continue-on-error: true #Продолжает выполнение, даже если этот шаг завершился с ошибкой.
-          with:
-            ref: gh-pages #Указывает, что нужно клонировать ветку gh-pages, где хранятся предыдущие отчеты.
-            path: gh-pages #Сохраняет загруженные файлы в директорию gh-pages.
 
-        - name: Build test report #Генерирует новый тестовый отчет с помощью Allure.
-          uses: simple-elf/allure-report-action@v1.7  #Использует действие simple-elf/allure-report-action@v1.7 для генерации отчета.
-          if: always() #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
-          with:
-            gh_pages: gh-pages #Указывает директорию gh-pages, где хранится история отчетов.
-            allure_history: allure-history # Указывает директорию, где будет сохранена история отчетов
-            allure_report: allure-report  # Указывает директорию, где будет сгенерирован новый отчет
-            allure_results: target/allure-results # Указывает директорию, где хранятся результаты тестов
-
-        - name: Publish test report  # Публикует новый тестовый отчет на GitHub Pages
-          uses: peaceiris/actions-gh-pages@v4 #peaceiris/actions-gh-pages@v3 для публикации.
-          if: always()  #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}  # Токен для аутентификации на GitHub. GitHub автоматически создает и предоставляет этот токен для каждого запуска рабочего процесса.
-            publish_branch: gh-pages  # Указывает ветку gh-pages для публикации
-            publish_dir: allure-history # Указывает директорию для публикации на GitHub Pages
 
         # Создание репорта с покрытием API тестов, основанного на Swagger. Документация: https://github.com/viclovsky/swagger-coverage
         # Установка swagger-coverage-commandline
@@ -156,3 +132,29 @@
             echo "Swagger coverage command completed"
             ls -al target/swagger-coverage-output
             
+
+          #Allure история с публикацией в pages
+        - name: Load test report history #Загружает историю тестовых отчетов.
+          uses: actions/checkout@v4 #Использует actions/checkout@v3 для клонирования репозитория.
+          if: always() #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
+          continue-on-error: true #Продолжает выполнение, даже если этот шаг завершился с ошибкой.
+          with:
+            ref: gh-pages #Указывает, что нужно клонировать ветку gh-pages, где хранятся предыдущие отчеты.
+            path: gh-pages #Сохраняет загруженные файлы в директорию gh-pages.
+
+        - name: Build test report #Генерирует новый тестовый отчет с помощью Allure.
+          uses: simple-elf/allure-report-action@v1.7  #Использует действие simple-elf/allure-report-action@v1.7 для генерации отчета.
+          if: always() #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
+          with:
+            gh_pages: gh-pages #Указывает директорию gh-pages, где хранится история отчетов.
+            allure_history: allure-history # Указывает директорию, где будет сохранена история отчетов
+            allure_report: allure-report  # Указывает директорию, где будет сгенерирован новый отчет
+            allure_results: target/allure-results # Указывает директорию, где хранятся результаты тестов
+
+        - name: Publish test report  # Публикует новый тестовый отчет на GitHub Pages
+          uses: peaceiris/actions-gh-pages@v4 #peaceiris/actions-gh-pages@v3 для публикации.
+          if: always()  #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}  # Токен для аутентификации на GitHub. GitHub автоматически создает и предоставляет этот токен для каждого запуска рабочего процесса.
+            publish_branch: gh-pages  # Указывает ветку gh-pages для публикации
+            publish_dir: allure-history # Указывает директорию для публикации на GitHub Pages
