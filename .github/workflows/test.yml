@@ -152,6 +152,9 @@
 
             # Выводим содержимое директории с результатами
             ls -al target/swagger-coverage-output
+            
+            cat coverage_report.txt
+
 
             # Выводим основные результаты из логов
             echo "Main results:"
