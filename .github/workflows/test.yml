@@ -133,6 +133,19 @@
           run: |
             ./swagger-coverage-1.5.0/swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline --help
 
+        - name: Check if swagger.json exists
+          run: |
+            if [ ! -f src/main/java/com/example/teamcity/api/swagger.json ]; then
+            echo "swagger.json not found"
+            exit 1
+            else
+            echo "swagger.json found"
+            fi
+            
+            - name: Check permissions of swagger.json
+            run: |
+            ls -l src/main/java/com/example/teamcity/api/swagger.json
+
           # Запуск Swagger coverage репорт
         - name: Run Swagger coverage
           if: always()
