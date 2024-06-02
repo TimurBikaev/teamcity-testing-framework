@@ -7,11 +7,6 @@
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
-
-        # Update actions to use Node.js 20
-        - name: Install dependencies
-          run: npm install
-
         - name: Set up JDK
           uses: actions/setup-java@v4
           with:
@@ -102,7 +97,7 @@
 
         #Allure история с публикацией в pages
         - name: Load test report history #Загружает историю тестовых отчетов.
-          uses: actions/checkout@v3 #Использует actions/checkout@v3 для клонирования репозитория.
+          uses: actions/checkout@v4 #Использует actions/checkout@v3 для клонирования репозитория.
           if: always() #Выполняется всегда, даже если предыдущие шаги завершились с ошибкой
           continue-on-error: true #Продолжает выполнение, даже если этот шаг завершился с ошибкой.
           with:
